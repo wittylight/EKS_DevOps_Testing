@@ -1,0 +1,46 @@
+{
+    "min_packer_version": "0.16.0",
+    "variables": {
+      "AWS_SHARED_CREDENTIALS_FILE": "$HOME/.aws/credentials" 
+    },
+    "builders": [{
+      "name": "ubuntu18-docker-ami",
+      "ami_name": "ubuntu-bionic-18.04-docker-{{isotime \"2006-01-02at15-04-05\" }}",
+      "instance_type": "t2.small",
+      "user_data_file": "scripts/user-data.yml",  
+      "type": "amazon-ebs",
+      "region": "{{user `region`}}",
+      "profile": "{{user `profile`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "vpc_id": "{{user `vpc_id`}}",
+      "ssh_interface": "private_ip",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "architecture": "x86_64",
+          "block-device-mapping.volume-type": "gp2",
+          "name": "*ubuntu-bionic-18.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+        "owners": ["099720109477"],
+        "most_recent": true
+      },
+      "ssh_username": "ubuntu",    
+      "tags": {
+        "Name": "ubuntu-bionic-18.04-docker-{{isotime \"2006-01-02at15-04-05\" }}",
+        "Creator": "Kevin Zhang",
+        "Service": "AWS Cloud",
+        "Environment": "Automation",
+        "System": "ubuntu_bionic_docker",
+        "Purpose": "BaseAMI"
+      }
+    }],
+    "provisioners": [
+      {
+        "type": "shell",
+        "script": "scripts/setup.sh",
+        "pause_before": "30s"
+      }
+    ]
+  }
+  

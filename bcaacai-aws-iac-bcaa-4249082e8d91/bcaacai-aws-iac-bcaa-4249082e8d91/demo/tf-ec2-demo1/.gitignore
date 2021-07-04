@@ -1,0 +1,15 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+**/.terraform.lock.hcl
+
+# Module directory
+.terraform/
+.idea
+terraform-aws-tfstate-backend.iml
+
+.build-harness
+build-harness
+
+# SSH directory
+ssh/

@@ -1,0 +1,26 @@
+#cloud-config
+#
+package_upgrade: true
+packages:
+ - aptdaemon
+ - git
+ - python-pip
+ - apt-transport-https
+ - ca-certificates
+runcmd:
+ - pip install -U pip
+ - pip install -U awscli
+ - cd /src/sup3rS3cretMes5age
+ - make run VIRTUAL_HOST=${site}
+
+#
+users:
+  - default
+  - name: kevinzhang
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdRREDj1ASWwR5h/SqXWf/gZ44UE1GkDa67pCMkEW29L/IqoLLYrdu6Uzs1yRuSYUdwv7Yl5BYAbliYNWFDc1USeuGcq2+m5WnHB+FF4xuOLWs/cco0AWpJimKc2ENY6mzvA9YgkkFLZGZ9IqqTboHMZa329UtamOxP7y1+n7ckteoT+8BzDVE6rluS1Wgx0BudGKv+fcFyW+uKEIe8QY0sdd5+8DHyMDyS8zF7oo2dH5NHCfEbDT+6SrqLxpfubFhzARovGsXLs8zQ+CCKwy3OFmNvkmeyCcrSCJrGufxK0pb1KGzHmKe6ecsZjY/ubTkbR4FYTMEflW2gFs8krCP kevinzhang@ct-kzhang.blakebromley.local
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: admin,sudo
+    shell: /bin/bash
+    
+#

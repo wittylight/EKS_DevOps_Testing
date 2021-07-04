@@ -1,0 +1,28 @@
+#cloud-config
+#
+package_upgrade: true
+packages:
+ - aptdaemon
+ - git
+ - python-pip
+ - apt-transport-https
+ - ca-certificates
+ - software-properties-common
+ - curl
+ - gnupg-agent
+ - unzip
+runcmd:
+ - pip install -U pip
+ - pip install -U awscli
+
+#
+users:
+  - default
+  - name: kevin
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCl+caHuHYRU0JG/h0hO1gzo7RnGh0Pt9pLb6TFclnwK4oeDvNb1qp9JAPTpPW9q5s7v8KQrVlkI2O0uSRtBKMZZpYj7qVyYC0ftE1f6ch/AI5phT4U0RI01NaA0IexZwcZEgqpQvKIHJINB6HDkvNLhClDRA4DepGOqXGYc8BMPv2hXnTcqqA0k0xIZ+WmmGuYBHNAH4lfQvuz3khwgr94Ox02d0TaDfb8gfuz5PCtg52+V+VDUpgEFAHqomAvMQWNSwStT6RJX7chCKRsDjcLpxWfLzcS1v6vRutr6xn8lw+O47z2CaESZ/YxrXQ87cxBW3Qo4674wpy8suMap5pH
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: admin,sudo
+    shell: /bin/bash
+
+#
